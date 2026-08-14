@@ -8,7 +8,9 @@ route post /api/auth/register
 */
 authRouter.post("/register", authController.registerUserController)
 
-authRouter.post("/api/login", authController.loginUserController)
+authRouter.post("/login", authController.loginUserController)
+
+authRouter.get("/logout", authController.logoutUserController)
 
 
 module.exports = authRouter;

@@ -8,13 +8,22 @@ main {
     
     .form-container {
         min-width: 350px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    // 1.39.20
-    .input-group {
+    form {
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
 
         input {
             border: none;

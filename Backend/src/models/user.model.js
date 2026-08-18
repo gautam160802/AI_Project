@@ -1,0 +1,24 @@
+const mongoose = require("mongoose");
+
+const userScheam = new mongoose.Schema({
+    username: {
+        type: String,
+        unique: [true, "username is already exist"],
+        required: true,
+    },
+
+    email: {
+        type: String,
+        unique: [true, "Account already exists with this email address" ],
+        required: true,
+    },
+
+    password: {
+        type: String,
+        required: true
+    }
+})
+
+const userModel = mongoose.model("users", userScheam)
+
+module.exports = userModel;

@@ -20,7 +20,7 @@ export async function register({ username, email, password }) {
 export async function login({ email, password }) {
     try {
         const response = await api.post('/api/auth/login', {
-            email, passoword
+            email, password
         })
         return response.data;
     } catch (err) {
@@ -45,3 +45,5 @@ export async function getMe() {
         console.log(err)
     }
 }
+
+// 2.30.50

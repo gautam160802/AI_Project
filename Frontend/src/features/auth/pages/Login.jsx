@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router'
 import "../auth.form.scss"
 import { useAuth } from '../hooks/useAuth'
+import ThemeToggle from '../../theme/ThemeToggle'
 
 const Login = () => {
     
@@ -28,6 +29,7 @@ const Login = () => {
     }
   return (
     <main className="auth-page">
+        <ThemeToggle className="theme-toggle--floating" />
         <div className="form-container">
             <h1>Welcome back</h1>
             <p>Sign in to your MindVault workspace.</p>

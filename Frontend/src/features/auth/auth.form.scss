@@ -22,7 +22,7 @@ main.auth-page,
     &::before {
         width: 320px;
         height: 320px;
-        background: #c7d2fe;
+        background: var(--color-blob-a);
         top: -80px;
         left: -60px;
     }
@@ -30,7 +30,7 @@ main.auth-page,
     &::after {
         width: 280px;
         height: 280px;
-        background: #e9d5ff;
+        background: var(--color-blob-b);
         bottom: -60px;
         right: -40px;
     }
@@ -42,8 +42,8 @@ main.auth-page,
         max-width: 420px;
         padding: 2rem;
         border-radius: var(--radius-lg);
-        background: rgba(255, 255, 255, 0.92);
-        border: 1px solid rgba(255, 255, 255, 0.8);
+        background: var(--color-auth-card);
+        border: 1px solid var(--color-border);
         box-shadow: var(--shadow-lg);
         backdrop-filter: blur(8px);
 
@@ -91,7 +91,7 @@ main.auth-page,
             &:focus {
                 border-color: var(--color-primary);
                 background: var(--color-surface);
-                box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+                box-shadow: 0 0 0 3px var(--color-input-focus-ring);
             }
         }
     }
@@ -112,6 +112,6 @@ main.auth-page,
         padding: 0.65rem 0.85rem;
         border-radius: var(--radius-sm);
         background: var(--color-danger-soft);
-        border: 1px solid #fecaca;
+        border: 1px solid var(--color-danger-border);
     }
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router'
 import "../auth.form.scss"
 import { useAuth } from '../hooks/useAuth';
+import ThemeToggle from '../../theme/ThemeToggle';
 
 const Register = () => {
 
@@ -30,6 +31,7 @@ const Register = () => {
   }
   return (
     <main className="auth-page">
+    <ThemeToggle className="theme-toggle--floating" />
     <div className="form-container">
         <h1>Create account</h1>
         <p>Start building your personal knowledge vault.</p>

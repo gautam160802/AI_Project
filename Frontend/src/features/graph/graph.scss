@@ -15,14 +15,14 @@
 .concept-graph {
     width: 100%;
     max-width: 560px;
-    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    background: var(--color-graph-bg);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
 }
 
 .graph-edge {
-    stroke: #818cf8;
+    stroke: var(--color-graph-edge);
     stroke-opacity: 0.55;
     stroke-width: 2;
 }
@@ -31,14 +31,14 @@
     cursor: pointer;
 
     circle {
-        fill: #eef2ff;
-        stroke: #c7d2fe;
+        fill: var(--color-graph-node-fill);
+        stroke: var(--color-graph-node-stroke);
         stroke-width: 2;
         transition: all 0.2s ease;
     }
 
     text {
-        fill: #334155;
+        fill: var(--color-graph-text);
         font-size: 10px;
         font-weight: 600;
         text-anchor: middle;
@@ -47,7 +47,7 @@
 
     &.active circle,
     &:hover circle {
-        fill: #e0e7ff;
+        fill: var(--color-graph-node-fill-active);
         stroke: var(--color-primary);
         filter: drop-shadow(0 4px 8px rgba(99, 102, 241, 0.25));
     }

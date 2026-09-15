@@ -1,4 +1,5 @@
-:root {
+:root,
+[data-theme="light"] {
     --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, sans-serif;
 
@@ -7,6 +8,10 @@
     --color-surface: #ffffff;
     --color-surface-muted: #f8fafc;
     --color-surface-hover: #f1f5f9;
+    --color-header: rgba(255, 255, 255, 0.75);
+    --color-auth-card: rgba(255, 255, 255, 0.92);
+    --color-chat-thread: rgba(255, 255, 255, 0.65);
+    --color-empty-state: rgba(255, 255, 255, 0.7);
 
     --color-text: #0f172a;
     --color-text-secondary: #475569;
@@ -14,6 +19,8 @@
 
     --color-border: #e2e8f0;
     --color-border-strong: #cbd5e1;
+    --color-tag-border: #c7d2fe;
+    --color-input-focus-ring: rgba(99, 102, 241, 0.12);
 
     --color-primary: #6366f1;
     --color-primary-hover: #4f46e5;
@@ -21,15 +28,26 @@
     --color-accent: #a855f7;
     --color-accent-soft: #f3e8ff;
 
-    --color-success-soft: #ecfdf5;
+    --color-blob-a: #c7d2fe;
+    --color-blob-b: #e9d5ff;
+
+    --color-graph-bg: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    --color-graph-edge: #818cf8;
+    --color-graph-node-fill: #eef2ff;
+    --color-graph-node-stroke: #c7d2fe;
+    --color-graph-node-fill-active: #e0e7ff;
+    --color-graph-text: #334155;
+
     --color-danger: #dc2626;
     --color-danger-soft: #fef2f2;
     --color-danger-text: #b91c1c;
+    --color-danger-border: #fecaca;
 
     --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
     --shadow-sm: 0 4px 14px rgba(15, 23, 42, 0.06);
     --shadow-md: 0 12px 32px rgba(15, 23, 42, 0.08);
     --shadow-lg: 0 20px 48px rgba(99, 102, 241, 0.12);
+    --shadow-primary: 0 6px 20px rgba(99, 102, 241, 0.35);
 
     --radius-sm: 10px;
     --radius-md: 14px;
@@ -37,4 +55,52 @@
     --radius-pill: 999px;
 
     --header-blur: blur(12px);
+}
+
+[data-theme="dark"] {
+    --color-bg: #0b1020;
+    --color-bg-gradient: linear-gradient(160deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+    --color-surface: #151b2e;
+    --color-surface-muted: #1a2238;
+    --color-surface-hover: #222b45;
+    --color-header: rgba(15, 20, 35, 0.82);
+    --color-auth-card: rgba(21, 27, 46, 0.92);
+    --color-chat-thread: rgba(21, 27, 46, 0.75);
+    --color-empty-state: rgba(21, 27, 46, 0.85);
+
+    --color-text: #f1f5f9;
+    --color-text-secondary: #cbd5e1;
+    --color-text-muted: #94a3b8;
+
+    --color-border: #2a3550;
+    --color-border-strong: #3b4a6b;
+    --color-tag-border: #4338ca;
+    --color-input-focus-ring: rgba(129, 140, 248, 0.22);
+
+    --color-primary: #818cf8;
+    --color-primary-hover: #a5b4fc;
+    --color-primary-soft: #1e293b;
+    --color-accent: #c084fc;
+    --color-accent-soft: #2e1065;
+
+    --color-blob-a: #312e81;
+    --color-blob-b: #581c87;
+
+    --color-graph-bg: linear-gradient(180deg, #151b2e 0%, #1a2238 100%);
+    --color-graph-edge: #a5b4fc;
+    --color-graph-node-fill: #1e293b;
+    --color-graph-node-stroke: #475569;
+    --color-graph-node-fill-active: #312e81;
+    --color-graph-text: #e2e8f0;
+
+    --color-danger: #f87171;
+    --color-danger-soft: #3f1d24;
+    --color-danger-text: #fecaca;
+    --color-danger-border: #7f1d1d;
+
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.45);
+    --shadow-primary: 0 6px 20px rgba(99, 102, 241, 0.35);
 }

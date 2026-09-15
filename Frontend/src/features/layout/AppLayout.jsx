@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import { useAuth } from "../auth/hooks/useAuth";
+import ThemeToggle from "../theme/ThemeToggle";
 import "./app-layout.scss";
 
 const AppLayout = () => {
@@ -23,6 +24,7 @@ const AppLayout = () => {
                     <NavLink to="/graph">Graph</NavLink>
                 </nav>
                 <div className="app-header-actions">
+                    <ThemeToggle />
                     <span className="user-pill">{user?.username}</span>
                     <button type="button" className="button" onClick={onLogout}>
                         Logout

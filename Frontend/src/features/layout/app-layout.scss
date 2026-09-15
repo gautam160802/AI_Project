@@ -8,31 +8,48 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid #2a2a2a;
-    background: #1c1c1c;
+    padding: 0.85rem 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: var(--header-blur);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: var(--shadow-xs);
 }
 
 .brand {
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: #e1034d;
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     text-decoration: none;
 }
 
 .app-nav {
     display: flex;
-    gap: 1rem;
+    gap: 0.35rem;
 
     a {
-        color: #ccc;
+        color: var(--color-text-muted);
         text-decoration: none;
-        padding: 0.35rem 0.5rem;
-        border-radius: 0.5rem;
+        padding: 0.45rem 0.85rem;
+        border-radius: var(--radius-pill);
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: background 0.2s ease, color 0.2s ease;
+
+        &:hover {
+            color: var(--color-text);
+            background: var(--color-surface-hover);
+        }
 
         &.active {
-            color: white;
-            background: #2a2a2a;
+            color: var(--color-primary);
+            background: var(--color-primary-soft);
         }
     }
 }
@@ -45,13 +62,18 @@
 }
 
 .user-pill {
-    font-size: 0.9rem;
-    color: #aaa;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-muted);
+    border: 1px solid var(--color-border);
 }
 
 .app-main {
     flex: 1;
-    padding: 1.5rem;
+    padding: 1.75rem 1.5rem 2.5rem;
     max-width: 960px;
     width: 100%;
     margin: 0 auto;

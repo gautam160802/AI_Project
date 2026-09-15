@@ -26,12 +26,13 @@ const Register = () => {
   };
 
   if(loading) {
-    return (<main><h1>Loading...</h1></main>)
+    return (<main className="auth-page"><p className="page-loading">Loading...</p></main>)
   }
   return (
-    <main>
+    <main className="auth-page">
     <div className="form-container">
-        <h1>Register</h1>
+        <h1>Create account</h1>
+        <p>Start building your personal knowledge vault.</p>
 
         {error && <p className="form-error">{error}</p>}
 

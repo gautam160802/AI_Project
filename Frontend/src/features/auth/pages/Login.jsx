@@ -24,12 +24,13 @@ const Login = () => {
     };
 
     if (loading) {
-        return (<main><h1>Loading...</h1></main>)
+        return (<main className="auth-page"><p className="page-loading">Loading...</p></main>)
     }
   return (
-    <main>
+    <main className="auth-page">
         <div className="form-container">
-            <h1>Login</h1>
+            <h1>Welcome back</h1>
+            <p>Sign in to your MindVault workspace.</p>
 
             {error && <p className="form-error">{error}</p>}
 

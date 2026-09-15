@@ -10,11 +10,18 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const handleSubmit = async(e) => {
-        e.preventDefault()
-        await handleLogin({ email, password })
-        navigate("/")
-    }
+    const [error, setError] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError("");
+        try {
+            await handleLogin({ email, password });
+            navigate("/");
+        } catch (err) {
+            setError(err.message);
+        }
+    };
 
     if (loading) {
         return (<main><h1>Loading...</h1></main>)
@@ -23,6 +30,8 @@ const Login = () => {
     <main>
         <div className="form-container">
             <h1>Login</h1>
+
+            {error && <p className="form-error">{error}</p>}
 
             <form onSubmit={handleSubmit}>
                 <div className="input-group">

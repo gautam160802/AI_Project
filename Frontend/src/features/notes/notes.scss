@@ -1,0 +1,144 @@
+.notes-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.muted {
+    color: #9a9a9a;
+    font-size: 0.95rem;
+}
+
+.muted-link {
+    color: #9a9a9a;
+    text-decoration: none;
+
+    &:hover {
+        color: #e1034d;
+    }
+}
+
+.notes-search {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    input {
+        flex: 1;
+        border: none;
+        outline: none;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        background: #222;
+        color: white;
+    }
+}
+
+.form-error {
+    color: #ff6b8a;
+    margin-bottom: 0.75rem;
+}
+
+.empty-state {
+    padding: 2rem;
+    text-align: center;
+    border: 1px dashed #333;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.notes-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.note-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    background: #1f1f1f;
+    border-radius: 0.75rem;
+    border: 1px solid #2a2a2a;
+}
+
+.note-title {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+        color: #e1034d;
+    }
+}
+
+.note-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.35rem;
+}
+
+.tag {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: #2a2a2a;
+    color: #ccc;
+}
+
+.note-preview {
+    margin-top: 0.5rem;
+    color: #aaa;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.note-editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.note-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        input,
+        textarea {
+            border: none;
+            outline: none;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            background: #222;
+            color: white;
+            font: inherit;
+        }
+    }
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.danger-button {
+    background: #3a1f28;
+    color: #ffb3c1;
+    flex-shrink: 0;
+}

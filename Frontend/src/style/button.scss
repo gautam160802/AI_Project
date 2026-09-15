@@ -8,6 +8,13 @@
 
     transition: all 0.3s ease-in-out;
 
+    background: #2a2a2a;
+    color: white;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     &.primary-button {
         background-color: #e1034d;
         color: white;

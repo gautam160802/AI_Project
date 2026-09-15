@@ -1,8 +1,9 @@
 
-const userModel = require("../models/user.model")
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
-const tokenBlacklistModel = require("../models/blacklist.model")
+const userModel = require("../models/user.model");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const tokenBlacklistModel = require("../models/blacklist.model");
+const { authCookieOptions } = require("../utils/cookieOptions");
 
 async function registerUserController(req, res) {
        
@@ -36,7 +37,7 @@ async function registerUserController(req, res) {
         { expiresIn: "1d" }
     )
 
-    res.cookie("token", token)
+    res.cookie("token", token, authCookieOptions);
 
     res.status(201).json({
         message: "User registered successfully",
@@ -73,7 +74,7 @@ async function loginUserController(req, res) {
         {expiresIn: "1d"}
     )
 
-    res.cookie("token", token)
+    res.cookie("token", token, authCookieOptions);
 
     res.status(200).json({
         message: "User loggedIn successfully.",
@@ -92,7 +93,7 @@ async function logoutUserController(req, res) {
         await tokenBlacklistModel.create({ token })
     }
 
-    res.clearCookie("token")
+    res.clearCookie("token", authCookieOptions);
 
     res.status(200).json({
         message: "User logged out successfully."
@@ -100,7 +101,13 @@ async function logoutUserController(req, res) {
 }
 
 async function getMeController(req, res) {
-    const user = await userModel.findById(req.user.id)
+    const user = await userModel.findById(req.user.id);
+
+    if (!user) {
+        return res.status(401).json({
+            message: "User not found",
+        });
+    }
 
     res.status(200).json({
         message: "User details fetched successfully.",

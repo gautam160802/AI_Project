@@ -12,9 +12,10 @@ app.use(cors({
 }))
 
 /*  require all the routes here*/
-const authRouter = require("./routes/auth.routes")
+const authRouter = require("./routes/auth.routes");
+const noteRouter = require("./routes/note.routes");
 
-// using all the routes here
-app.use("/api/auth", authRouter)
+app.use("/api/auth", authRouter);
+app.use("/api/notes", noteRouter);
 
 module.exports = app;

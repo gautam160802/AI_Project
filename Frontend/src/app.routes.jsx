@@ -5,6 +5,8 @@ import Protected from "./features/auth/components/Protected";
 import AppLayout from "./features/layout/AppLayout";
 import NotesList from "./features/notes/pages/NotesList";
 import NoteEditor from "./features/notes/pages/NoteEditor";
+import ChatPage from "./features/chat/pages/ChatPage";
+import GraphPage from "./features/graph/pages/GraphPage";
 
 export const router = createBrowserRouter([
     {
@@ -33,6 +35,14 @@ export const router = createBrowserRouter([
             {
                 path: "/notes/:id",
                 element: <NoteEditor />,
+            },
+            {
+                path: "/chat",
+                element: <ChatPage />,
+            },
+            {
+                path: "/graph",
+                element: <GraphPage />,
             },
         ],
     },

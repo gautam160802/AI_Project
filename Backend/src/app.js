@@ -14,8 +14,10 @@ app.use(cors({
 /*  require all the routes here*/
 const authRouter = require("./routes/auth.routes");
 const noteRouter = require("./routes/note.routes");
+const chatRouter = require("./routes/chat.routes");
 
 app.use("/api/auth", authRouter);
 app.use("/api/notes", noteRouter);
+app.use("/api/chat", chatRouter);
 
 module.exports = app;

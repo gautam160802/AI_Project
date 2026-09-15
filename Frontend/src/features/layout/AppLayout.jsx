@@ -19,6 +19,8 @@ const AppLayout = () => {
                 </Link>
                 <nav className="app-nav">
                     <NavLink to="/" end>Notes</NavLink>
+                    <NavLink to="/chat">AI Chat</NavLink>
+                    <NavLink to="/graph">Graph</NavLink>
                 </nav>
                 <div className="app-header-actions">
                     <span className="user-pill">{user?.username}</span>

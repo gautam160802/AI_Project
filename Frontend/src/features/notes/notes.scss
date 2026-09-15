@@ -109,6 +109,66 @@
     margin-bottom: 1rem;
 }
 
+.note-editor-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.related-notes-box {
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #333;
+    background: #1c1c1c;
+
+    h2 {
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+        color: #ccc;
+    }
+
+    ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    li {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+    }
+
+    a {
+        color: #f5f5f5;
+        text-decoration: none;
+
+        &:hover {
+            color: #e1034d;
+        }
+    }
+}
+
+.note-summary-box {
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #333;
+    background: #1c1c1c;
+
+    h2 {
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+        color: #ccc;
+    }
+
+    p {
+        white-space: pre-wrap;
+        line-height: 1.45;
+        color: #ddd;
+    }
+}
+
 .note-form {
     display: flex;
     flex-direction: column;

@@ -25,3 +25,18 @@ export async function deleteNote(id) {
     const response = await api.delete(`/api/notes/${id}`);
     return response.data;
 }
+
+export async function summarizeNote(id) {
+    const response = await api.post(`/api/notes/${id}/summarize`);
+    return response.data;
+}
+
+export async function refreshRelatedNotes(id) {
+    const response = await api.post(`/api/notes/${id}/refresh-links`);
+    return response.data;
+}
+
+export async function fetchNotesGraph() {
+    const response = await api.get("/api/notes/graph");
+    return response.data;
+}

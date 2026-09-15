@@ -1,4 +1,9 @@
 const noteModel = require("../models/note.model");
+const { summarizeNote } = require("../services/ai.service");
+const {
+    recomputeRelatedNotes,
+    cleanupRelatedOnDelete,
+} = require("../services/relatedNotes.service");
 
 function parseTags(tags) {
     if (!tags) return [];
@@ -28,9 +33,15 @@ async function createNoteController(req, res) {
         tags: parseTags(tags),
     });
 
+    await recomputeRelatedNotes(note._id, req.user.id);
+
+    const populated = await noteModel
+        .findById(note._id)
+        .populate("relatedNotes", "title tags");
+
     res.status(201).json({
         message: "Note created",
-        note,
+        note: populated,
     });
 }
 
@@ -59,10 +70,12 @@ async function listNotesController(req, res) {
 }
 
 async function getNoteController(req, res) {
-    const note = await noteModel.findOne({
-        _id: req.params.id,
-        userId: req.user.id,
-    });
+    const note = await noteModel
+        .findOne({
+            _id: req.params.id,
+            userId: req.user.id,
+        })
+        .populate("relatedNotes", "title tags");
 
     if (!note) {
         return res.status(404).json({ message: "Note not found" });
@@ -96,10 +109,103 @@ async function updateNoteController(req, res) {
     if (tags !== undefined) note.tags = parseTags(tags);
 
     await note.save();
+    await recomputeRelatedNotes(note._id, req.user.id);
+
+    const populated = await noteModel
+        .findById(note._id)
+        .populate("relatedNotes", "title tags");
 
     res.status(200).json({
         message: "Note updated",
-        note,
+        note: populated,
+    });
+}
+
+async function summarizeNoteController(req, res) {
+    const note = await noteModel.findOne({
+        _id: req.params.id,
+        userId: req.user.id,
+    });
+
+    if (!note) {
+        return res.status(404).json({ message: "Note not found" });
+    }
+
+    if (!note.content?.trim()) {
+        return res.status(400).json({
+            message: "Add some content before summarizing",
+        });
+    }
+
+    try {
+        const summary = await summarizeNote({
+            title: note.title,
+            content: note.content,
+            tags: note.tags,
+        });
+
+        note.summary = summary;
+        await note.save();
+
+        res.status(200).json({
+            message: "Note summarized",
+            note,
+        });
+    } catch (err) {
+        const status = err.statusCode || 500;
+        res.status(status).json({
+            message: err.message || "Failed to summarize note",
+        });
+    }
+}
+
+async function getNotesGraphController(req, res) {
+    const notes = await noteModel
+        .find({ userId: req.user.id })
+        .select("title tags relatedNotes");
+
+    const nodes = notes.map((note) => ({
+        id: String(note._id),
+        title: note.title,
+        tags: note.tags || [],
+    }));
+
+    const seen = new Set();
+    const links = [];
+
+    for (const note of notes) {
+        const source = String(note._id);
+        for (const relatedId of note.relatedNotes || []) {
+            const target = String(relatedId);
+            const key = [source, target].sort().join("|");
+            if (seen.has(key)) continue;
+            seen.add(key);
+            links.push({ source, target });
+        }
+    }
+
+    res.status(200).json({
+        message: "Graph fetched",
+        graph: { nodes, links },
+    });
+}
+
+async function refreshRelatedNotesController(req, res) {
+    const note = await recomputeRelatedNotes(req.params.id, req.user.id, {
+        useAi: true,
+    });
+
+    if (!note) {
+        return res.status(404).json({ message: "Note not found" });
+    }
+
+    const populated = await noteModel
+        .findById(note._id)
+        .populate("relatedNotes", "title tags");
+
+    res.status(200).json({
+        message: "Related notes refreshed",
+        note: populated,
     });
 }
 
@@ -113,6 +219,8 @@ async function deleteNoteController(req, res) {
         return res.status(404).json({ message: "Note not found" });
     }
 
+    await cleanupRelatedOnDelete(req.user.id, note._id);
+
     res.status(200).json({
         message: "Note deleted",
     });
@@ -124,4 +232,7 @@ module.exports = {
     getNoteController,
     updateNoteController,
     deleteNoteController,
+    summarizeNoteController,
+    getNotesGraphController,
+    refreshRelatedNotesController,
 };

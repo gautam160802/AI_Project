@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
-import { createNote, fetchNote, updateNote } from "../services/notes.api";
+import {
+    createNote,
+    fetchNote,
+    refreshRelatedNotes,
+    summarizeNote,
+    updateNote,
+} from "../services/notes.api";
 import { getApiErrorMessage } from "../../../lib/api";
 import "../notes.scss";
 
@@ -14,6 +20,10 @@ const NoteEditor = () => {
     const [tags, setTags] = useState("");
     const [loading, setLoading] = useState(!isNew);
     const [saving, setSaving] = useState(false);
+    const [summary, setSummary] = useState("");
+    const [summarizing, setSummarizing] = useState(false);
+    const [relatedNotes, setRelatedNotes] = useState([]);
+    const [refreshingLinks, setRefreshingLinks] = useState(false);
     const [error, setError] = useState("");
 
     useEffect(() => {
@@ -28,6 +38,8 @@ const NoteEditor = () => {
                 setTitle(note.title || "");
                 setContent(note.content || "");
                 setTags((note.tags || []).join(", "));
+                setSummary(note.summary || "");
+                setRelatedNotes(note.relatedNotes || []);
             } catch (err) {
                 setError(getApiErrorMessage(err, "Failed to load note"));
             } finally {
@@ -37,6 +49,34 @@ const NoteEditor = () => {
 
         load();
     }, [id, isNew]);
+
+    const handleRefreshLinks = async () => {
+        if (isNew) return;
+        setRefreshingLinks(true);
+        setError("");
+        try {
+            const data = await refreshRelatedNotes(id);
+            setRelatedNotes(data.note.relatedNotes || []);
+        } catch (err) {
+            setError(getApiErrorMessage(err, "Failed to refresh related notes"));
+        } finally {
+            setRefreshingLinks(false);
+        }
+    };
+
+    const handleSummarize = async () => {
+        if (isNew) return;
+        setSummarizing(true);
+        setError("");
+        try {
+            const data = await summarizeNote(id);
+            setSummary(data.note.summary || "");
+        } catch (err) {
+            setError(getApiErrorMessage(err, "Failed to summarize note"));
+        } finally {
+            setSummarizing(false);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,7 +90,8 @@ const NoteEditor = () => {
                 const data = await createNote(payload);
                 navigate(`/notes/${data.note._id}`);
             } else {
-                await updateNote(id, payload);
+                const data = await updateNote(id, payload);
+                setRelatedNotes(data.note.relatedNotes || []);
                 navigate("/");
             }
         } catch (err) {
@@ -68,7 +109,14 @@ const NoteEditor = () => {
         <section className="note-editor">
             <div className="note-editor-header">
                 <h1>{isNew ? "New note" : "Edit note"}</h1>
-                <Link to="/" className="muted-link">Back to notes</Link>
+                <div className="note-editor-actions">
+                    {!isNew && (
+                        <Link to={`/chat?noteId=${id}`} className="button">
+                            Ask AI about this note
+                        </Link>
+                    )}
+                    <Link to="/" className="muted-link">Back to notes</Link>
+                </div>
             </div>
 
             <form onSubmit={handleSubmit} className="note-form">
@@ -104,9 +152,54 @@ const NoteEditor = () => {
                     />
                 </div>
 
+                {!isNew && relatedNotes.length > 0 && (
+                    <div className="related-notes-box">
+                        <h2>Related notes</h2>
+                        <ul>
+                            {relatedNotes.map((related) => (
+                                <li key={related._id}>
+                                    <Link to={`/notes/${related._id}`}>{related.title}</Link>
+                                    {related.tags?.length > 0 && (
+                                        <span className="muted">
+                                            {related.tags.join(", ")}
+                                        </span>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+
+                {!isNew && summary && (
+                    <div className="note-summary-box">
+                        <h2>AI summary</h2>
+                        <p>{summary}</p>
+                    </div>
+                )}
+
                 {error && <p className="form-error">{error}</p>}
 
                 <div className="form-actions">
+                    {!isNew && (
+                        <>
+                            <button
+                                type="button"
+                                className="button"
+                                onClick={handleRefreshLinks}
+                                disabled={refreshingLinks}
+                            >
+                                {refreshingLinks ? "Refreshing..." : "Refresh links"}
+                            </button>
+                            <button
+                                type="button"
+                                className="button"
+                                onClick={handleSummarize}
+                                disabled={summarizing || !content.trim()}
+                            >
+                                {summarizing ? "Summarizing..." : "AI summarize"}
+                            </button>
+                        </>
+                    )}
                     <button
                         type="submit"
                         className="button primary-button"

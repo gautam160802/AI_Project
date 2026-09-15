@@ -47,7 +47,7 @@ const NotesList = () => {
             <div className="notes-page-header">
                 <div>
                     <h1>Your notes</h1>
-                    <p className="muted">Capture ideas now. AI chat comes next.</p>
+                    <p className="muted">Capture ideas, chat with AI, and explore your concept graph.</p>
                 </div>
                 <Link to="/notes/new" className="button primary-button">
                     New note
